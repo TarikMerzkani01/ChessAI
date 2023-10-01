@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "ChessUI/1.0.0": {
+        "dependencies": {
+          "ChessRule": "1.0.0"
+        },
+        "runtime": {
+          "ChessUI.dll": {}
+        }
+      },
+      "ChessRule/1.0.0": {
+        "runtime": {
+          "ChessRule.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ChessUI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ChessRule/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
