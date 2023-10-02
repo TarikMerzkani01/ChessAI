@@ -5,10 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChessUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600" Icon="Assets/icon.ico">
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="Assets/Board.png"/>
-        </Grid.Background>
-    </Grid>
+        Title="MainWindow" Width="600" SizeToContent="Height" 
+        Icon="Assets/icon.ico"
+        WindowStartupLocation="CenterScreen"
+        Background="#101010"
+        >
+    <!-- Wrap Grid in a viewbox so the chess board is always square-->
+    <Viewbox>
+        <Grid x:Name="BoardGrid"
+              Width="600"
+              Height="600"
+              >
+            <Grid.Background>
+                <ImageBrush ImageSource="Assets/Board.png"/>
+            </Grid.Background>
+            <UniformGrid x:Name="PieceGrid"
+                         Rows="8"
+                         Columns="8"
+                         RenderOptions.BitmapScalingMode="HighQuality"
+                         >
+                <!--
+                <Image Source="Assets/KingB.png"/>
+                We are adding these at runtime though, hence commented.
+                -->
+         
+            </UniformGrid>
+        </Grid>
+    </Viewbox>
 </Window>

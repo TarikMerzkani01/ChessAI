@@ -9,7 +9,7 @@
 
         public Piece this[int row, int col]
         {
-            get { return Piece[row, col]; }
+            get { return pieces[row, col]; }
             set { pieces[row, col] = value; }
         }
 
@@ -31,6 +31,11 @@
 
         // Default constructor already sets up Board with no pieces
         // Thus, we just add a static method to initialize a start game board
+
+        public Board()
+        {
+
+        }
 
         public static Board Initial()
         {
@@ -58,11 +63,22 @@
             this[7, 5] = new Bishop(Player.White);
             this[7, 6] = new Knight(Player.White);
             this[7, 7] = new Rook(Player.White);
+
+            for (int i = 0; i < 8; i++)
+            {
+                this[1, i] = new Pawn(Player.Black);
+                this[6, i] = new Pawn(Player.White);
+            }
+        }       
+
+        public static bool IsInside(Position pos)
+        {
+            return pos.Row >= 0 && pos.Column >= 0 && pos.Row < 8 && pos.Column < 8;
         }
 
-        for (int i = 0; i < 8; i++) {
-
+        public bool IsEmpty(Position pos)
+        {
+            return this[pos] == null;
         }
-
     }
 }
