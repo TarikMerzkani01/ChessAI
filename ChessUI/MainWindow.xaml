@@ -15,10 +15,23 @@
         <Grid x:Name="BoardGrid"
               Width="600"
               Height="600"
-              >
+              MouseDown="BoardGrid_MouseDown"
+            >
+        <!-- Let's add an event handler for clicking pieces-->
+            
             <Grid.Background>
                 <ImageBrush ImageSource="Assets/Board.png"/>
             </Grid.Background>
+            
+            <!-- This grid will show green squares of spaces the
+            piece can move, important that it is placed above piece grid
+            so the green squares show up below the pieces-->
+            <UniformGrid x:Name="HighlightGrid"
+                         Rows="8"
+                         Columns="8">
+            </UniformGrid>
+                         
+                
             <UniformGrid x:Name="PieceGrid"
                          Rows="8"
                          Columns="8"

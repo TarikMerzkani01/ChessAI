@@ -1,0 +1,11 @@
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\bin\Release\net6.0\ChessRule.deps.json
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\bin\Release\net6.0\ChessRule.dll
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\bin\Release\net6.0\ChessRule.pdb
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Release\net6.0\ChessRule.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Release\net6.0\ChessRule.AssemblyInfoInputs.cache
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Release\net6.0\ChessRule.AssemblyInfo.cs
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Release\net6.0\ChessRule.csproj.CoreCompileInputs.cache
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Release\net6.0\ChessRule.dll
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Release\net6.0\refint\ChessRule.dll
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Release\net6.0\ChessRule.pdb
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Release\net6.0\ref\ChessRule.dll

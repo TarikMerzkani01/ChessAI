@@ -80,5 +80,53 @@
         {
             return this[pos] == null;
         }
+
+        // Helper method PiecePositions returns all non-empty Piece Positions
+
+        public IEnumerable<Position> PiecePositions()
+        {
+            for (int r = 0; r < 8; r++)
+            {
+                for (int c = 0; c < 8; c++)
+                {
+                    Position pos = new Position(r, c);
+
+                    if (!IsEmpty(pos))  // If Not Empty
+                    {
+                        yield return pos;
+                    }
+                }
+            }
+        }
+
+        // Same helper but for a specified player
+        public IEnumerable<Position> PiecePositionsFor(Player player)
+        {
+            // Remember, this == board instance, which is accessible as a 2d array or via Position object
+            return PiecePositions().Where(pos => this[pos].Color == player);
+        }
+
+        // Finally, a Check Detection function
+        public bool IsInCheck(Player player)
+        {
+            return PiecePositionsFor(player.Opponent()).Any(pos =>
+            {
+                Piece piece = this[pos];
+                return piece.CanCaptureOpponentKing(pos, this);
+            });
+        }
+
+        public Board Copy()
+        {
+            Board copy = new Board();
+
+            foreach (Position pos in PiecePositions())
+            {
+                copy[pos] = this[pos].Copy(); // Makes a copy of piece in thisboard, then places it on copy board
+            }
+
+            return copy;
+        }
+
     }
 }

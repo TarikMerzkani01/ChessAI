@@ -1,0 +1,7 @@
+C:\Users\tarik\Desktop\AllCodeProgs\ChessDeliverables\ChessAlpha0.1\ChessUI.exe
+C:\Users\tarik\Desktop\AllCodeProgs\ChessDeliverables\ChessAlpha0.1\ChessUI.dll
+C:\Users\tarik\Desktop\AllCodeProgs\ChessDeliverables\ChessAlpha0.1\ChessUI.deps.json
+C:\Users\tarik\Desktop\AllCodeProgs\ChessDeliverables\ChessAlpha0.1\ChessUI.runtimeconfig.json
+C:\Users\tarik\Desktop\AllCodeProgs\ChessDeliverables\ChessAlpha0.1\ChessUI.pdb
+C:\Users\tarik\Desktop\AllCodeProgs\ChessDeliverables\ChessAlpha0.1\ChessRule.dll
+C:\Users\tarik\Desktop\AllCodeProgs\ChessDeliverables\ChessAlpha0.1\ChessRule.pdb

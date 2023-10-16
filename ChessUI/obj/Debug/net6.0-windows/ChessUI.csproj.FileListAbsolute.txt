@@ -22,3 +22,6 @@ C:\Users\tarik\source\repos\ChessAISolution\ChessUI\obj\Debug\net6.0-windows\ref
 C:\Users\tarik\source\repos\ChessAISolution\ChessUI\obj\Debug\net6.0-windows\ChessUI.pdb
 C:\Users\tarik\source\repos\ChessAISolution\ChessUI\obj\Debug\net6.0-windows\ChessUI.genruntimeconfig.cache
 C:\Users\tarik\source\repos\ChessAISolution\ChessUI\obj\Debug\net6.0-windows\ref\ChessUI.dll
+C:\Users\tarik\source\repos\ChessAISolution\ChessUI\obj\Debug\net6.0-windows\GameOverMenu.g.cs
+C:\Users\tarik\source\repos\ChessAISolution\ChessUI\obj\Debug\net6.0-windows\App.baml
+C:\Users\tarik\source\repos\ChessAISolution\ChessUI\obj\Debug\net6.0-windows\GameOverMenu.baml
