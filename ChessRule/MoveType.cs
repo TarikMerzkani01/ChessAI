@@ -6,10 +6,10 @@ namespace ChessRule
         // Contains a value for each kind of move in the game
         // Most moves are Normal
         Normal,
-        CastleKS,
-        CastleQS,
+        CastleKS,           // TO-DO
+        CastleQS,           // TO-DO
         DoublePawn,
-        EnPassant,
-        PawnPromotion
+        EnPassant,          // TO-DO
+        PawnPromotion       // TO-DO
     }
 }
