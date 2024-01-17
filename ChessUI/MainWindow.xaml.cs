@@ -34,10 +34,16 @@ namespace ChessUI
 
         public MainWindow()
         {
+            // TEST THINGS WITH
             InitializeComponent();
             InitializeBoard();
 
-            gameState = new GameState(Player.White, Board.Initial());
+            // TO TEST THINGS WITH
+            // Normal Starting Position: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
+            // Example Random Position: "r3k2r/pp1n2pp/2p2q2/b2p1n2/BP1Pp3/P1N2P2/2PB2PP/R2Q1RK1"
+            String myfen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+            Board myBoard = Board.CustomInitial(myfen);
+            gameState = new GameState(Player.White, myBoard);
             DrawBoard(gameState.Board);
             SetCursor(gameState.CurrentPlayer);
         }
@@ -76,6 +82,11 @@ namespace ChessUI
 
         private void BoardGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (IsMenuOnScreen())   // If menu on screen and you click on board, nothing should happen
+            {
+                return;
+            }
+
             // Handle some user input!
             // Called when player clicks somewhere on the board
 
@@ -133,8 +144,33 @@ namespace ChessUI
             if (moveCache.TryGetValue(pos, out Move move))  // Try to get the move with toPos == pos (ClickPosition)
             {
                 // If found/exists
-                HandleMove(move);
+                if (move.Type == MoveType.PawnPromotion)
+                {
+                    HandlePromotion(move.FromPos, move.ToPos);
+                }
+                else
+                {
+                    HandleMove(move);
+                }
             }
+        }
+
+        private void HandlePromotion(Position from, Position to)
+        {
+            pieceImages[to.Row, to.Column].Source = Images.GetImage(gameState.CurrentPlayer, PieceType.Pawn);
+            pieceImages[from.Row, from.Column].Source = null;
+            // This is in the sequence where the menu shows up. Show up a pawn in the first/last row before
+            // substituting
+
+            PromotionMenu promMenu = new PromotionMenu(gameState.CurrentPlayer);
+            MenuContainer.Content = promMenu;
+
+            promMenu.PieceSelected += type =>   // Register an eventhandler for the pieceselected event
+            {
+                MenuContainer.Content = null;
+                Move promMove = new PawnPromotion(from, to, type);
+                HandleMove(promMove);
+            };
         }
 
         private void HandleMove(Move move)
@@ -142,6 +178,11 @@ namespace ChessUI
             gameState.MakeMove(move);
             DrawBoard(gameState.Board);
             SetCursor(gameState.CurrentPlayer);
+
+            if (gameState.IsGameOver())
+            {
+                ShowGameOver();
+            }
         }
 
         // Takes the legal moves of the selected piece and places it in cache
@@ -187,7 +228,72 @@ namespace ChessUI
             }
         }
 
-        
+        private bool IsMenuOnScreen()
+        {
+            return MenuContainer.Content != null;
+        }
+
+        private void ShowGameOver()
+        {
+            GameOverMenu gameOverMenu = new GameOverMenu(gameState);
+            MenuContainer.Content = gameOverMenu;
+            // This will make it show up now
+
+            // Event handler for buttons
+            gameOverMenu.OptionSelected += option =>
+            {
+                if (option == Option.Restart)
+                {
+                    MenuContainer.Content = null;
+                    RestartGame();
+                }
+                else
+                {
+                    Application.Current.Shutdown();
+                }
+            };
+        }
+
+        private void RestartGame()
+        {
+            selectedPos = null; // Make sure piece selected is unselected
+            HideHighlights();   // Hide every highlight from selecting
+            moveCache.Clear();
+            gameState = new GameState(Player.White, Board.Initial());
+            DrawBoard(gameState.Board);
+            SetCursor(gameState.CurrentPlayer);
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!IsMenuOnScreen() && e.Key == Key.Escape)
+            {
+                ShowPauseMenu();
+            }
+        }
+
+        private void ShowPauseMenu()
+        {
+            PauseMenu pauseMenu = new PauseMenu();
+            MenuContainer.Content = pauseMenu;
+
+            pauseMenu.OptionSelected += option =>
+            {
+                MenuContainer.Content = null;   // Hide menu again
+
+                if (option == Option.Restart)
+                {
+                    RestartGame();
+                }
+            };
+        }
+
+        // Event handler for buttons
+
+
+
+
+
 
 
 

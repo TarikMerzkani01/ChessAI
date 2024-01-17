@@ -9,3 +9,4 @@ C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Debug\net6.0\ChessRule
 C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Debug\net6.0\refint\ChessRule.dll
 C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Debug\net6.0\ChessRule.pdb
 C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Debug\net6.0\ref\ChessRule.dll
+C:\Users\tarik\source\repos\ChessAISolution\ChessRule\obj\Debug\net6.0\ChessRule.sourcelink.json

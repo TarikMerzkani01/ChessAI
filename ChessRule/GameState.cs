@@ -16,11 +16,22 @@ namespace ChessRule
 
         public Result Result { get; private set; } = null;
 
+        private int noCaptureOrPawnMoves = 0; // These are half moves
+
+        private string stateString;
+
+        // State history dictionary maps stateStrings from gamestate to frequency
+        // (amount of times it has occurred in the duration of the gameState)
+        private readonly Dictionary<string, int> stateHistory = new Dictionary<string, int>();
+
         // Constructor to initialize any position we want. Useful for testing
         public GameState(Player player, Board board)
         {
             CurrentPlayer = player;
             Board = board;
+
+            stateString = new StateString(CurrentPlayer, board).ToString();
+            stateHistory[stateString] = 1;
         }
 
         // Public method that returns all legal moves for a piece at a given position
@@ -44,8 +55,23 @@ namespace ChessRule
         // Applies move to current Board State
         public void MakeMove(Move move)
         {
-            move.Execute(Board);
+            Board.SetPawnSkipPosition(CurrentPlayer, null);
+            // Skipped position is forgotten after turn is done
+            // (including both half turns)
+
+            bool captureOrPawn = move.Execute(Board);
+            if (captureOrPawn)
+            {
+                noCaptureOrPawnMoves = 0;
+                stateHistory.Clear();
+            }
+            else
+            {
+                noCaptureOrPawnMoves++;
+            }
+
             CurrentPlayer = CurrentPlayer.Opponent();
+            UpdateStateString();
             CheckForGameOver(); // We call this so result is set after a move that ends the game (EXPENSIVE?)
         }   
 
@@ -108,12 +134,50 @@ namespace ChessRule
                     Result = Result.Draw(EndReason.Stalemate);
                 }
             }
+            else if(Board.InsufficientMaterial())
+            {
+                Result = Result.Draw(EndReason.InsufficientMaterial);
+            }
+            else if (FiftyMoveRule())
+            {
+                Result = Result.Draw(EndReason.FiftyMoveRule);
+            }
+            else if (ThreefoldRepetition())
+            {
+                Result = Result.Draw(EndReason.ThreefoldRepetition);
+            }
+            
         }
 
         // GameState can detect now
         public bool IsGameOver()
         {
             return Result != null;
+        }
+
+        private bool FiftyMoveRule()
+        {
+            int fullMoves = noCaptureOrPawnMoves / 2;
+            return fullMoves == 50;
+        }
+
+        private void UpdateStateString()
+        {
+            stateString = new StateString(CurrentPlayer, Board).ToString();
+
+            if (!stateHistory.ContainsKey(stateString))
+            {
+                stateHistory[stateString] = 1;
+            }
+            else
+            {
+                stateHistory[stateString]++;
+            }
+        }
+
+        private bool ThreefoldRepetition()
+        {
+            return stateHistory[stateString] == 3;
         }
 
     }

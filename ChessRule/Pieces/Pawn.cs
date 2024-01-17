@@ -51,6 +51,16 @@
             return board[pos].Color != Color;
         }
 
+        // Helper method that creates 4 promotion moves
+        private static IEnumerable<Move> PromotionMoves(Position from, Position to)
+        {
+            yield return new PawnPromotion(from, to, PieceType.Knight);
+            yield return new PawnPromotion(from, to, PieceType.Bishop);
+            yield return new PawnPromotion(from, to, PieceType.Rook);
+            yield return new PawnPromotion(from, to, PieceType.Queen);
+        }
+
+
         private IEnumerable<Move> ForwardMoves(Position from, Board board)
         {
             // Check if can move one step, then we take care of two steps
@@ -60,8 +70,18 @@
 
             if (CanMoveTo(oneMovePos, board))
             {
-                // create normal move which moves pawn to that position
-                yield return new NormalMove(from, oneMovePos);
+                if (oneMovePos.Row == 0 || oneMovePos.Row == 7)
+                {
+                    foreach (Move promMove in PromotionMoves(from, oneMovePos))
+                    {
+                        // We just return all 4 promotion moves
+                        yield return promMove;
+                    }
+                } else
+                {
+                    // create normal move which moves pawn to that position
+                    yield return new NormalMove(from, oneMovePos);
+                }
 
                 Position twoMovesPos = oneMovePos + forward;
 
@@ -70,11 +90,11 @@
                 {
                     // for now, use NormalMove. Won't be the case later
                     // Will change when we handle En Passant
-                    yield return new NormalMove(from, twoMovesPos);
+                    yield return new DoublePawn(from, twoMovesPos);
+
+                    // We use DoublePawn since DoublePawn stores the skipped position
                 }
             }
-
-
         }
 
         // Method for diagonal moves (returns all move that result in capture for pawn)
@@ -86,9 +106,26 @@
                 Position to = from + forward + dir; // Goes diagonally left or right
                 // North or South depending on forward
 
-                if (CanCaptureAt(to, board))
+                if (to == board.GetPawnSkipPosition(Color.Opponent()))
                 {
-                    yield return new NormalMove(from, to);
+                    // En Passant move!! But we still need to tweak because it's only possible on first turn
+                    yield return new EnPassant(from, to);
+                }
+                else if (CanCaptureAt(to, board))
+                {
+                    if (to.Row == 0 || to.Row == 7)
+                    {
+                        foreach (Move promMove in PromotionMoves(from, to))
+                        {
+                            // We just return all 4 promotion moves
+                            yield return promMove;
+                        }
+                    }
+                    else
+                    {
+                        // create normal move which moves pawn to that position
+                        yield return new NormalMove(from, to);
+                    }
                 }
             }
         }

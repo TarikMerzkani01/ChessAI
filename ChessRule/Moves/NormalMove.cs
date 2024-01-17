@@ -18,12 +18,15 @@
         // Execute method, makes move happen, takes piece at from and places at to.
         // Does not have in mind the legality of move, just executes it.
         // Legality logic done elsewhere
-        public override void Execute(Board board)
+        public override bool Execute(Board board)
         {
             Piece piece = board[FromPos];
+            bool capture = !board.IsEmpty(ToPos);   // If ToPos is not empty
             board[ToPos] = piece;
             board[FromPos] = null;
             piece.HasMoved = true;
+
+            return capture || piece.Type == PieceType.Pawn;
         }
     }
 }

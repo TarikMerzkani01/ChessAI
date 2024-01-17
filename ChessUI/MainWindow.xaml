@@ -9,7 +9,7 @@
         Icon="Assets/icon.ico"
         WindowStartupLocation="CenterScreen"
         Background="#101010"
-        >
+        KeyDown="Window_KeyDown">
     <!-- Wrap Grid in a viewbox so the chess board is always square-->
     <Viewbox>
         <Grid x:Name="BoardGrid"
@@ -43,6 +43,9 @@
                 -->
          
             </UniformGrid>
+
+            <ContentControl x:Name="MenuContainer"/>
+            <!-- This will contain the active menu if there is one -->
         </Grid>
     </Viewbox>
 </Window>

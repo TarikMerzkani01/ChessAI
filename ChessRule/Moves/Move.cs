@@ -8,7 +8,7 @@
         public abstract Position FromPos { get; }
         public abstract Position ToPos { get; }
 
-        public abstract void Execute(Board board);
+        public abstract bool Execute(Board board);
         // Execute the move on the board it takes as parameter
         // This is a bit like the design pattern: Command Pattern
 

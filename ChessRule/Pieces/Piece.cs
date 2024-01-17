@@ -61,7 +61,6 @@ namespace ChessRule
                 return piece != null && piece.Type == PieceType.King; //returns move if move captures a KING
                 // No need to check color, since GetMoves never returns move captures on pieces of same color
             });
-
         }
     }
 }
